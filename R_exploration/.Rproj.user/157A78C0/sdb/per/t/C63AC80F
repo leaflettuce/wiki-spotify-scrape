@@ -1,0 +1,17 @@
+{
+    "contents" : "library(ggplot2)\nlibrary(dplyr)\ndata = read.csv('spotify_clean.csv')\n\ndata$popularity <- as.numeric(data$popularity)\ndata$release <- as.numeric(data$release)\ndata$tracks <- as.numeric(data$tracks)\ndata$time <- as.numeric(data$time)\n\nstr(data)\nsummary(data)\ndim(data)\nnames(data)\nlevels(data$genre)\nlevels(genre.sub$genre)\n\n## mean popularity - 24.34\n## median popularity - 22\n##average tracks per album - 13.77\n## 10 - 15 = 1st and 3rd quartile\n##average time between albums - 3 years\n\nmetal_subset <- data[grep(\"metal\", data$genre), ]\njazz_subset <- data[grep(\"jazz\", data$genre), ]\ncountry_subset <- data[grep(\"country\", data$genre), ]\nrock_subset <- data[grep(\"rock\", data$genre), ]\n\ngenre.sub <- subset(data, genre %in%  \n                      names(table(data$genre))\n                    [table(data$genre) >= 500])\n\n\npopular.sub <- subset(data, popularity >= 70)\n\n#Book release Years\nggplot(aes(x = release), data = data) +\n  geom_histogram(binwidth = 1) + \n  xlim(1960,2016)  +\n  ylim(0,1500) +\n  ggtitle('Albums by release year') +\n  xlab('Year') + \n  ylab('Count')\n\n#Book release Years subset\nggplot(aes(x = release), data = data) +\n  geom_histogram(binwidth = 1) + \n  xlim(1990,2016)  +\n  ylim(0,1500) +\n  ggtitle('Albums by release year(90s-current') +\n  xlab('Year') + \n  ylab('Count')\n\n#tracks per album\nggplot(aes(x = tracks), data = data) +\n  geom_histogram(binwidth = 1) + \n  xlim(7, 20)  +\n  ggtitle('Tracks per album') +\n  xlab('tracks') + \n  ylab('frequency')\n\n#most popular genres\nggplot(aes(x = genre), data = genre.sub) +\n  geom_histogram() + \n  ggtitle('Top Genre Occurance') +\n  scale_y_continuous(breaks = seq(0,4000, 500), \n                     limits = c(0, 4000)) +  \n  stat_bin(binwidth=1, geom=\"text\", \n           aes(label=..count.., color = 'orange'), \n           hjust=1.05)  + \n  coord_flip() + \n  theme(legend.position = \"none\")\n\n#time between albums\nggplot(aes(x = time), data = data) +\n  geom_histogram(binwidth = 1) + \n  xlim(0,5)  +\n  ggtitle('years between album releases') +\n  xlab('Years') + \n  ylab('Count')\n\n#album release number via time between\nggplot(aes(x = number, y = time), data = data) +\n  geom_point(aes(size = count(time)))  + \n  xlim(0,6)  +\n  ylim(0, 4) +\n  ggtitle('time between related to which album release') +\n  xlab('which album in bands career') + \n  ylab('time between (years)')\n",
+    "created" : 1461335387521.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3694876843",
+    "id" : "C63AC80F",
+    "lastKnownWriteTime" : 1461339110,
+    "path" : "E:/saves/spotify/R_exploration/spotify_exploring.R",
+    "project_path" : "spotify_exploring.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
