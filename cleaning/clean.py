@@ -52,10 +52,11 @@ for k,v in dict.iteritems():
 
         e = v[second]
 
+        if difference >= 20:
+            continue
+
         final.append([e[0], e[1], e[2], e[3], e[4], e[5], release_number, difference])
 
 for album in final:
-    if album[6] > 30:
-        continue
 
     writer.writerow(album)

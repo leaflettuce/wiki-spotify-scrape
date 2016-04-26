@@ -78,11 +78,33 @@ ggplot(aes(x = time), data = data) +
   xlab('Years') + 
   ylab('Count')
 
-#album release number via time between
-ggplot(aes(x = number, y = time), data = data) +
-  geom_point(aes(size = count(time)))  + 
-  xlim(0,6)  +
-  ylim(0, 4) +
-  ggtitle('time between related to which album release') +
-  xlab('which album in bands career') + 
-  ylab('time between (years)')
+#album popularity via time between albums
+ggplot(aes(x = time, 
+           y = popularity), 
+       data = data) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  ggtitle('Time between albums effect on popularity') +
+  xlab('Time Between albums') +
+  ylab('Popularity')+
+  scale_x_continuous(limits = c(0, 10),
+                     breaks = seq(0, 10, 1))
+
+
+#number of album in career via popularity
+ggplot(aes(x = number, y = popularity), data = data) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  xlim(1,6)  +
+  ggtitle('Popularity by which album in career') +
+  xlab('which album') + 
+  ylab('popularity average')
+
+
+#release date / popularity
+ggplot(aes(x = release, y = popularity), data = data) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  xlim(1950, 2016)  +
+  ggtitle('Popularity by which album in career') +
+  xlab('release year') + 
+  ylab('popularity average')
