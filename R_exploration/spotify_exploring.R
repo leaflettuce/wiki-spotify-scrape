@@ -32,7 +32,7 @@ genre.sub <- subset(data, genre %in%
 
 popular.sub <- subset(data, popularity >= 70)
 
-#Book release Years
+#album release Years
 ggplot(aes(x = release), data = data) +
   geom_histogram(binwidth = 1) + 
   xlim(1960,2016)  +
@@ -41,7 +41,7 @@ ggplot(aes(x = release), data = data) +
   xlab('Year') + 
   ylab('Count')
 
-#Book release Years subset
+#album release Years subset
 ggplot(aes(x = release), data = data) +
   geom_histogram(binwidth = 1) + 
   xlim(1990,2016)  +
@@ -105,6 +105,43 @@ ggplot(aes(x = number, y = popularity), data = data) +
 ggplot(aes(x = release, y = popularity), data = data) +
   stat_summary(fun.y = mean, geom="line", size = 1.2) +
   xlim(1950, 2016)  +
-  ggtitle('Popularity by which album in career') +
+  ggtitle('Popularity by year') +
   xlab('release year') + 
   ylab('popularity average')
+
+#genre split pop by which album
+ggplot(aes(x = number, y = popularity, color = genre), data = genre.sub) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  xlim(1,6)  +
+  ggtitle('Popularity by which album in career') +
+  xlab('which album') + 
+  ylab('popularity average')
+
+
+#time spent on albums
+ggplot(aes(x = number, y = time), data = genre.sub) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  xlim(2,6)  + ylim(0,5) +
+  ggtitle('Ave Time spent on album in career') +
+  xlab('which album') + 
+  ylab('Time between')
+
+
+ggplot(aes(x = number, y = time, color = genre), data = genre.sub) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  xlim(2,6)  + ylim(0,5) +
+  ggtitle('Ave Time spent on album in career') +
+  xlab('which album') + 
+  ylab('Time between')
+
+
+ggplot(aes(x = number, y = popularity), data = metal_subset) +
+  stat_summary(fun.y = mean, geom="line", size = 1.2) +
+  stat_summary(fun.y = mean, geom = 'point',size = 4)+
+  xlim(2,6)  + ylim(0,5) +
+  ggtitle('Ave Time spent on album in career(metal)') +
+  xlab('which album') + 
+  ylab('Time between')
